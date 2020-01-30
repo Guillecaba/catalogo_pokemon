@@ -18,7 +18,7 @@ class Cards extends Component {
     this.setState({loading:true})
     
     
-    if ( this.props.name != ""){
+   /*  if ( this.props.name != ""){
       axios.get('/cards?name='+this.props.name)
         .then((response)=> {
           const pokemones = response.data.cards
@@ -28,7 +28,7 @@ class Cards extends Component {
         }).catch((error)=>{
           this.setState({error:true,loading:false});
         })
-    }else {
+    }else { */
       axios.get('/cards?subtype=Basic')
       .then((response) => {
         console.log(response);
@@ -41,16 +41,15 @@ class Cards extends Component {
       .catch((error) => {
         this.setState({error:true,loading:false});
       });
-      }
+      
     }
 
     shouldComponentUpdate(nextProps) {
-      console.log(nextProps.name)
-      console.log(this.props.name)
-      return nextProps.name != this.props.name || nextProps.name == "" ;
+      return ((nextProps.name != this.props.name || nextProps.name == "" ) || (nextProps.type != this.props.type || nextProps.type == "None"));
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
+      console.log('[componentDidUpdate]: ',this.props.type)
 
       let separator ="?";
 
@@ -61,12 +60,21 @@ class Cards extends Component {
       if(this.props.name !="") {
         filters = {...filters,name:this.props.name}
       }
-      if(this.props.type!="None"){
-        
+      if(this.props.type!="None" ){
+        filters = {...filters,types:this.props.type}
       }
+
+      for (let k in filters) {
+        if (filters[k] ==null){
+          continue
+        }
+        url = url + separator + k + "=" + filters[k]
+        separator = "&"
+      }
+
      
-      if ( this.props.name != ""){
-        axios.get('/cards?name='+this.props.name)
+      if(this.props.name != prevProps.name || this.props.type != prevProps.type)
+        axios.get(url)
           .then((response)=> {
             const pokemones = response.data.cards
             console.log(pokemones);
@@ -76,12 +84,8 @@ class Cards extends Component {
           }).catch((error)=>{
             this.setState({error:true});
           })
-      }
+      
     }
-   
-
-  
-
   render() {
     let cards = <Spinner />
     if ( !this.state.error && !this.state.loading ) {

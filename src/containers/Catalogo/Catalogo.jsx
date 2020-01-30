@@ -10,12 +10,12 @@ import { render } from '@testing-library/react';
 class Catalogo extends Component{
   state= {
     name:"",
-    select:""
+    select:"None"
   }
 
   inputSelectHandler = (event) =>{
     console.log(event.target.value);
-    const select = event.taget.value;
+    const select = event.target.value;
 
     this.setState({select})
 
