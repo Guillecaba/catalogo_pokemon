@@ -1,0 +1,28 @@
+/* .Filters {
+  display"f
+} */
+
+.Filters {
+  width:20%;
+  box-sizing: content-box;
+  box-shadow: 0 2px 3px #ccc;
+  border-radius: 10px;
+  padding-left: 16px;
+}
+
+.Filters select {
+  width:100%;
+  margin:8px 0;
+  outline:none;
+  border:none;
+
+}
+
+@media(max-width:768px){
+  .Filters {
+    width:80%;
+    margin: 16px auto;
+
+  }
+}
+

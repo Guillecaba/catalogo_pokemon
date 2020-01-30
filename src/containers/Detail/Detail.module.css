@@ -1,0 +1,68 @@
+.Detail {
+  display:flex;
+  flex-wrap:wrap;
+  margin-top:80px;
+}
+
+.Card {
+  flex:35%;
+  padding:16px;
+  
+  
+}
+.Image {
+  
+  
+} 
+
+.Image img {
+  width:80%;
+  padding:16px;
+  text-align: center;
+  border-top: 8px solid blue;
+  box-shadow:0 2px 3px #ccc;
+  margin:10px;
+  box-sizing:border-box;
+  cursor:pointer;
+
+}
+
+.Content{
+  flex:55%;
+  padding:16px;
+  
+}
+
+.Info {
+  height: 96%;
+  padding:16px;
+  text-align: center;
+  border: 1px solid #eee;
+  border-top: 8px solid blue;
+  box-shadow:0 2px 3px #ccc;
+  margin:10px;
+  box-sizing:border-box;
+  cursor:pointer;
+}
+
+.Badge {
+  display:inline;
+  border-radius: 5px;
+  border:2px solid blue;
+  padding:4px 8px;
+}
+
+
+
+
+@media(max-width:768px){
+  .Image {
+    flex:100%;
+    margin:auto;
+  }
+  .Image img {
+    width:100%;
+  
+  
+  }
+}

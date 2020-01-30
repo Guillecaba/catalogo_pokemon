@@ -1,0 +1,17 @@
+.Toolbar {
+  background-color: blue;
+  height: 72px;
+  width:100%;
+  position:fixed;
+  top:0;
+  left:0;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  color:white;
+  
+}
+
+.Toolbar h1 {
+ text-align: center;
+}

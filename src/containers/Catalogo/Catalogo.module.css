@@ -1,0 +1,13 @@
+/* .Catalogo {
+  width:
+}
+ */
+.Header {
+  display:flex;
+  width:70%;
+  flex-wrap:wrap;
+  padding:16px 0;
+  align-items: center;
+  justify-content: space-between;
+  margin:auto;
+}
