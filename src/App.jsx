@@ -18,8 +18,8 @@ const App = () => {
     <BrowserRouter>
       <Toolbar />
       <Switch>
-        <Route path="/catalogo" component={Catalogo} />
-        <Route path="/detalle/:id" exact component={Detail} />
+        <Route exact path="/catalogo" component={Catalogo} />
+        <Route exact path="/detalle/:id" component={Detail} />
       </Switch>
       <Redirect from="/" to="/catalogo" />
     </BrowserRouter>
