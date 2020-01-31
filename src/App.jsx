@@ -20,8 +20,8 @@ const App = () => {
       <Switch>
         <Route path="/catalogo" component={Catalogo} />
         <Route path="/detalle/:id" exact component={Detail} />
-        <Redirect from="/" to="/catalogo" />
       </Switch>
+      <Redirect from="/" to="/catalogo" />
     </BrowserRouter>
   );
 };

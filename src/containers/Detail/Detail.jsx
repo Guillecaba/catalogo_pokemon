@@ -1,158 +1,182 @@
-import React, { Component, Fragment } from "react";
+/* eslint-disable linebreak-style */
+import React, { Component } from 'react';
 
-import axios from "../../axios";
+import { withRouter } from 'react-router-dom';
+import axios from '../../axios';
 
-import classes from "./Detail.module.css";
-import { withRouter } from "react-router-dom";
+import classes from './Detail.module.css';
 
-import Button from "../../components/Button/Button";
-import Spinner from"../../components/UI/Spinner/Spinner";
+import Button from '../../components/Button/Button';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 class Detail extends Component {
-
   constructor() {
+    super();
     this.state = {
       pokemon: null,
-      loading: true
+      loading: true,
     };
+    this.gotBack = this.gotBack.bind(this);
   }
-  
+
 
   componentDidMount() {
-    console.log(this.props);
-
-    console.log(this.props.match.params.id);
-    //this.setState({loading:true});
-    axios.get("/cards/" + this.props.match.params.id).then(response => {
+    // eslint-disable-next-line react/prop-types
+    const { match } = this.props;
+    // eslint-disable-next-line react/prop-types
+    axios.get(`/cards/${match.params.id}`).then((response) => {
       const pokemon = response.data.card;
       this.setState({ pokemon, loading: false });
-      console.log(response);
     });
 
-    //xios.get('/cards/+')
+    // xios.get('/cards/+')
   }
 
-  gotBack = () => {
-    this.props.history.push({
-      pathname: "/catalogo"
+  gotBack() {
+    // eslint-disable-next-line react/prop-types
+    const { history } = this.props;
+    // eslint-disable-next-line react/prop-types
+    history.push({
+      pathname: '/catalogo',
     });
-  };
+  }
+
   render() {
+    const { loading, pokemon } = this.state;
     let detalle = <Spinner />;
-    if (!this.state.loading) {
-      const { imageUrl } = this.state.pokemon;
+    if (!loading) {
+      const { imageUrl } = pokemon;
       detalle = (
         <article className={classes.Detail}>
           <div className={classes.Card}>
             <div className={classes.Image}>
-              <img src={imageUrl} />
+              <img src={imageUrl} alt="Imagen" />
             </div>
           </div>
           <div className={classes.Content}>
             <div className={classes.Info}>
-              <h1>{this.state.pokemon.name}</h1>
-              {this.state.pokemon.types.map(el => (
-                <label className={classes.Badge}> {el}</label>
+              <h1>{pokemon.name}</h1>
+              {pokemon.types.map((el) => (
+                // eslint-disable-next-line jsx-a11y/label-has-associated-control
+                <label className={classes.Badge}>
+                  {' '}
+                  {el}
+                </label>
               ))}
 
-              {this.state.pokemon.attacks && (
-                <Fragment>
+              {pokemon.attacks && (
+                <>
                   <h3>Ataques: </h3>
                   <div
                     style={{
-                      display: "flex",
-                      flexFlow: "row wrap",
-                      justifyContent: "center",
-                      width: "80%",
-                      margin: "auto"
+                      display: 'flex',
+                      flexFlow: 'row wrap',
+                      justifyContent: 'center',
+                      width: '80%',
+                      margin: 'auto',
                     }}
                   >
-                    {this.state.pokemon.attacks.map(el => (
+                    {pokemon.attacks.map((el) => (
                       <div
                         style={{
-                          width: "160px",
-                          padding: "16px",
-                          textAlign: "center",
-                          borderLeft: "8px solid blue",
-                          boxShadow: "0 2px 3px #ccc",
-                          margin: "10px",
-                          boxSizing: "border-box",
-                          cursor: "pointer"
+                          width: '160px',
+                          padding: '16px',
+                          textAlign: 'center',
+                          borderLeft: '8px solid blue',
+                          boxShadow: '0 2px 3px #ccc',
+                          margin: '10px',
+                          boxSizing: 'border-box',
+                          cursor: 'pointer',
                         }}
                       >
-                        <p>Nombre: {el.name + " "}</p>
+                        <p>
+                          Nombre:
+                          {`${el.name} `}
+                        </p>
                         <p>{el.cost[0]}</p>
                       </div>
                     ))}
                   </div>
-                </Fragment>
+                </>
               )}
 
-              {this.state.pokemon.resistances && (
-                <Fragment>
-                  <h3 style={{ display: "inline" }}>Resistencias: </h3>
+              {pokemon.resistances && (
+                <>
+                  <h3 style={{ display: 'inline' }}>Resistencias: </h3>
                   <div
                     style={{
-                      display: "flex",
-                      flexFlow: "row wrap",
-                      justifyContent: "center",
-                      width: "80%",
-                      margin: "auto"
+                      display: 'flex',
+                      flexFlow: 'row wrap',
+                      justifyContent: 'center',
+                      width: '80%',
+                      margin: 'auto',
                     }}
                   >
-                    {this.state.pokemon.resistances.map(el => (
+                    {pokemon.resistances.map((el) => (
                       <div
                         style={{
-                          width: "160px",
-                          padding: "16px",
-                          textAlign: "center",
-                          borderLeft: "8px solid blue",
-                          boxShadow: "0 2px 3px #ccc",
-                          margin: "10px",
-                          boxSizing: "border-box",
-                          cursor: "pointer"
+                          width: '160px',
+                          padding: '16px',
+                          textAlign: 'center',
+                          borderLeft: '8px solid blue',
+                          boxShadow: '0 2px 3px #ccc',
+                          margin: '10px',
+                          boxSizing: 'border-box',
+                          cursor: 'pointer',
                         }}
                       >
-                        <p>Tipo: {el.type + " "}</p>
-                        <p>Valor: {el.value}</p>
+                        <p>
+Tipo:
+                          {`${el.type} `}
+                        </p>
+                        <p>
+Valor:
+                          {el.value}
+                        </p>
                       </div>
                     ))}
                   </div>
-                </Fragment>
+                </>
               )}
 
-              {this.state.pokemon.weaknesses && (
-                <Fragment>
-                  <h3 style={{ display: "inline" }}>Debilidades: </h3>
+              {pokemon.weaknesses && (
+                <>
+                  <h3 style={{ display: 'inline' }}>Debilidades: </h3>
                   <div
                     style={{
-                      display: "flex",
-                      flexFlow: "row wrap",
-                      justifyContent: "center",
-                      width: "80%",
-                      margin: "auto"
+                      display: 'flex',
+                      flexFlow: 'row wrap',
+                      justifyContent: 'center',
+                      width: '80%',
+                      margin: 'auto',
                     }}
                   >
-                    {this.state.pokemon.weaknesses &&
-                      this.state.pokemon.weaknesses.map(el => (
+                    {pokemon.weaknesses
+                      && pokemon.weaknesses.map((el) => (
                         <div
                           style={{
-                            width: "160px",
-                            padding: "16px",
-                            textAlign: "center",
-                            borderLeft: "8px solid blue",
-                            boxShadow: "0 2px 3px #ccc",
-                            margin: "10px",
-                            boxSizing: "border-box",
-                            cursor: "pointer"
+                            width: '160px',
+                            padding: '16px',
+                            textAlign: 'center',
+                            borderLeft: '8px solid blue',
+                            boxShadow: '0 2px 3px #ccc',
+                            margin: '10px',
+                            boxSizing: 'border-box',
+                            cursor: 'pointer',
                           }}
                         >
-                          <p>Tipo: {el.type + " "}</p>
-                          <p>Valor: {el.value}</p>
+                          <p>
+Tipo:
+                            {`${el.type} `}
+                          </p>
+                          <p>
+Valor:
+                            {el.value}
+                          </p>
                         </div>
                       ))}
                   </div>
-                </Fragment>
+                </>
               )}
 
               <Button clicked={this.gotBack}>Volver al catálogo</Button>
