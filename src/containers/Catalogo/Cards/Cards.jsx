@@ -7,42 +7,68 @@ import classes from './Cards.module.css';
 
 import axios from '../../../axios';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import Button from '../../../components/Button/Button';
 
 class Cards extends Component {
   state = {
     pokemones:[],
     error:false,
     loading:false,
+    next:null
   }
   componentDidMount() {
     this.setState({loading:true})
-    
-    
-   /*  if ( this.props.name != ""){
-      axios.get('/cards?name='+this.props.name)
-        .then((response)=> {
-          const pokemones = response.data.cards
-          console.log(pokemones);
-        
-          this.setState({pokemones,loading:false})
-        }).catch((error)=>{
-          this.setState({error:true,loading:false});
-        })
-    }else { */
       axios.get('/cards?subtype=Basic')
       .then((response) => {
         console.log(response);
-        
+        let link = response.headers.link;
+        let linkArray = link.split(',')
+        linkArray = linkArray[1].split(';')
+        console.log(linkArray)
+        let loadMoreUrl;
+        if( linkArray[1] ==' rel="next"'){
+          loadMoreUrl = linkArray[0].replace('<https://api.pokemontcg.io/v1/','').replace('>','');
+          console.log(loadMoreUrl)
+         
+        }else{
+          loadMoreUrl = null;
+        }    
         const pokemones = response.data.cards
         console.log(pokemones);
         
-        this.setState({pokemones,loading:false})
+        this.setState({pokemones,loading:false,next:loadMoreUrl})
       })
       .catch((error) => {
         this.setState({error:true,loading:false});
       });
       
     }
+
+    loadMore = () => {
+      axios.get(this.state.next.trim()).then((response) => {
+        const pokemones =this.state.pokemones;
+        const array = pokemones.concat(response.data.cards);
+        console.log(array)
+        let link = response.headers.link;
+        let linkArray = link.split(',')
+        linkArray = linkArray.filter(el=> el.split(';')[1] ==' rel="next"')
+        console.log(linkArray)
+        let loadMoreUrl;
+        loadMoreUrl = linkArray[0].replace('<https://api.pokemontcg.io/v1/','').replace('>','');
+        console.log(loadMoreUrl)
+         
+
+
+        this.setState({pokemones:array,next:loadMoreUrl})        
+        
+        console.log(pokemones);
+    
+      }).catch((error)=>{
+        console.log('error');
+        
+      })
+    }
+
 
     shouldComponentUpdate(nextProps) {
       return ((nextProps.name != this.props.name || nextProps.name == "" ) || (nextProps.type != this.props.type || nextProps.type == "None"));
@@ -106,6 +132,13 @@ class Cards extends Component {
         <section className={classes.Cards}>
           {cards}
         </section>
+        {this.state.next &&(
+          <div style={{textAlign:'center'}}>
+          <Button clicked = {this.loadMore}>Cargar más</Button>
+        </div>
+        ) }
+        
+       
         
       </div>
     );

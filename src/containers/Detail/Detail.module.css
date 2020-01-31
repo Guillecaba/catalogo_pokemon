@@ -1,12 +1,16 @@
 .Detail {
+  justify-self: center;
   display:flex;
   flex-wrap:wrap;
-  margin-top:80px;
+ /*  margin-top:80px; */
+  width:80%;
+  margin: 80px auto;
 }
 
 .Card {
-  flex:35%;
+  flex:45%;
   padding:16px;
+  
   
   
 }
@@ -28,7 +32,7 @@
 }
 
 .Content{
-  flex:55%;
+  flex:40%;
   padding:16px;
   
 }
