@@ -11,12 +11,17 @@ import Button from '../../../components/Button/Button';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
 
 class Cards extends Component {
-  state = {
-    pokemones:[],
-    error:false,
-    loading:false,
-    next:null
+  constructor() {
+    super();
+    this.state = {
+      pokemones:[],
+      error:false,
+      loading:false,
+      next:null
+    }
+    
   }
+  
   componentDidMount() {
     this.setState({loading:true})
       axios.get('/cards?subtype=Basic')

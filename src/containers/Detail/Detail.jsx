@@ -9,10 +9,14 @@ import Button from "../../components/Button/Button";
 import Spinner from"../../components/UI/Spinner/Spinner";
 
 class Detail extends Component {
-  state = {
-    pokemon: null,
-    loading: true
-  };
+
+  constructor() {
+    this.state = {
+      pokemon: null,
+      loading: true
+    };
+  }
+  
 
   componentDidMount() {
     console.log(this.props);
