@@ -6,7 +6,7 @@ const toolbar = () => {
     <header className={classes.Toolbar}>
       <h1>Catálogo de Pokemon</h1>
     </header>
-  )
-}
+  );
+};
 
 export default toolbar;

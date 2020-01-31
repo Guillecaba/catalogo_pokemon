@@ -3,7 +3,7 @@ import React from 'react';
 import classes from './Card.module.css';
 
 const card = (props) => {
-  const{imageUrl, name} =props
+  const { imageUrl, name } = props;
   return (
     <article className={classes.Card}>
       <img src={imageUrl} alt="imagen de pokemon" />
