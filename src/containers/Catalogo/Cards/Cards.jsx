@@ -8,6 +8,7 @@ import classes from './Cards.module.css';
 import axios from '../../../axios';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Button from '../../../components/Button/Button';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
 
 class Cards extends Component {
   state = {
@@ -144,4 +145,4 @@ class Cards extends Component {
     );
   }
 }
-export default Cards;
+export default withErrorHandler(Cards,axios);
