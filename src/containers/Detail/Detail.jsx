@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 import { withRouter } from 'react-router-dom';
 import axios from '../../axios';
@@ -57,18 +57,18 @@ class Detail extends Component {
             <div className={classes.Info}>
               <h1>{pokemon.name}</h1>
               {pokemon.types && (
-                <Fragment>
-                <h3>Tipos:</h3>
-                 {pokemon.types.map((el) => (
+                <>
+                  <h3>Tipos:</h3>
+                  {pokemon.types.map((el) => (
                   // eslint-disable-next-line jsx-a11y/label-has-associated-control
-                  <label key={el} className={classes.Badge}>
-                    {' '}
-                    {el}
-                  </label>
-                ))}
-                </Fragment>
+                    <label key={el} className={classes.Badge}>
+                      {' '}
+                      {el}
+                    </label>
+                  ))}
+                </>
               )}
-             
+
 
               {pokemon.attacks && (
                 <>
