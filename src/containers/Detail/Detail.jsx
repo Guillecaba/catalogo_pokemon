@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import { withRouter } from 'react-router-dom';
 import axios from '../../axios';
@@ -56,13 +56,19 @@ class Detail extends Component {
           <div className={classes.Content}>
             <div className={classes.Info}>
               <h1>{pokemon.name}</h1>
-              {pokemon.types.map((el) => (
-                // eslint-disable-next-line jsx-a11y/label-has-associated-control
-                <label className={classes.Badge}>
-                  {' '}
-                  {el}
-                </label>
-              ))}
+              {pokemon.types && (
+                <Fragment>
+                <h3>Tipos:</h3>
+                 {pokemon.types.map((el) => (
+                  // eslint-disable-next-line jsx-a11y/label-has-associated-control
+                  <label key={el} className={classes.Badge}>
+                    {' '}
+                    {el}
+                  </label>
+                ))}
+                </Fragment>
+              )}
+             
 
               {pokemon.attacks && (
                 <>
@@ -78,6 +84,7 @@ class Detail extends Component {
                   >
                     {pokemon.attacks.map((el) => (
                       <div
+                        key={el.name}
                         style={{
                           width: '160px',
                           padding: '16px',
@@ -114,6 +121,7 @@ class Detail extends Component {
                   >
                     {pokemon.resistances.map((el) => (
                       <div
+                        key={el.value}
                         style={{
                           width: '160px',
                           padding: '16px',
@@ -154,6 +162,7 @@ Valor:
                     {pokemon.weaknesses
                       && pokemon.weaknesses.map((el) => (
                         <div
+                          key={el.value}
                           style={{
                             width: '160px',
                             padding: '16px',

@@ -29,7 +29,7 @@ const filters = (props) => {
     <article className={classes.Filters}>
       <select onChange={changed}>
         {types.map((el) => (
-          <option value={el}>{el}</option>
+          <option key={el} value={el}>{el}</option>
         ))}
       </select>
     </article>

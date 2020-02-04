@@ -6,7 +6,7 @@ import {
   BrowserRouter,
   Route,
   Switch,
-  Redirect,
+
 } from 'react-router-dom';
 
 import Catalogo from './containers/Catalogo/Catalogo';
@@ -20,8 +20,8 @@ const App = () => {
       <Switch>
         <Route exact path="/catalogo" component={Catalogo} />
         <Route exact path="/detalle/:id" component={Detail} />
+        <Route exact path="/" component={Catalogo} />
       </Switch>
-      <Redirect from="/" to="/catalogo" />
     </BrowserRouter>
   );
 };
